@@ -1,6 +1,15 @@
 version: "3"
+
+# DBの永続化
 volumes:
   mysql_volume:
+
+# コンテナ間通信
+# 事前に以下のコマンドを実行する必要あり
+# コマンド: docker network create go_app_network
+networks:
+  go_app_network:
+    external: true
 
 services:
   # MySQL
@@ -18,6 +27,8 @@ services:
       - TZ=Asia/Tokyo
     ports:
       - 3306:3306
+    networks:
+      - go_app_network
 
   # Go API
   api:
@@ -30,4 +41,8 @@ services:
       - "8080:8000"
     volumes:
       - ./:/app
+    depends_on:
+      - db
+    networks:
+      - go_app_network
     tty: true
