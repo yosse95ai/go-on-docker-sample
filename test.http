@@ -1,0 +1,12 @@
+### 環境変数
+@port = 8080
+@hostname = localhost
+@host = {{hostname}}:{{port}}
+@contentType=application/json
+
+
+###
+GET http://{{host}} HTTP/1.1
+content-type: {{contentType}}
+
+###

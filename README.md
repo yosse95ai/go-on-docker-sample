@@ -20,6 +20,14 @@ cd go-on-docker-sample
 
 ### 初回実行時
 
+まずはネットワークを作成
+
+```bash
+docker network create go_app_network
+```
+
+コンテナをビルドして起動。
+
 ```bash
 docker-compose up --build
 
@@ -31,6 +39,8 @@ docker-compose up
 
 ### ２回目以降
 
+コンテナを起動してください。
+
 ```bash
 # コンテナ起動
 docker-compose up
@@ -38,3 +48,5 @@ docker-compose up
 # バックグラウンド起動
 docker-compose up -d
 ```
+
+内容に変更がある場合はコンテナをビルドし直してください。
