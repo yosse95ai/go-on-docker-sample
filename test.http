@@ -10,3 +10,15 @@ GET http://{{host}} HTTP/1.1
 content-type: {{contentType}}
 
 ###
+GET http://{{host}}/books HTTP/1.1
+content-type: {{contentType}}
+###
+GET http://{{host}}/publishers HTTP/1.1
+content-type: {{contentType}}
+###
+GET http://{{host}}/authors HTTP/1.1
+content-type: {{contentType}}
+
+###
+GET http://{{host}}/author/1 HTTP/1.1
+content-type: {{contentType}}

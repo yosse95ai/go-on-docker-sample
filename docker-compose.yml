@@ -45,4 +45,5 @@ services:
       - db
     networks:
       - go_app_network
+    command: ["./docker/go/entrypoint.sh"]
     tty: true

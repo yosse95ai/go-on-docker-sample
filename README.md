@@ -37,6 +37,12 @@ docker-compose build
 docker-compose up
 ```
 
+初期データを挿入
+
+```bash
+docker exec go_api go run db/seeds.go
+```
+
 ### ２回目以降
 
 コンテナを起動してください。
