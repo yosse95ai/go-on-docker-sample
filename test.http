@@ -9,16 +9,18 @@
 GET http://{{host}} HTTP/1.1
 content-type: {{contentType}}
 
-###
+### すべての本を取得
 GET http://{{host}}/books HTTP/1.1
 content-type: {{contentType}}
-###
+
+### すべての出版社を取得
 GET http://{{host}}/publishers HTTP/1.1
 content-type: {{contentType}}
-###
+
+### すべての作家を取得
 GET http://{{host}}/authors HTTP/1.1
 content-type: {{contentType}}
 
-###
+### 作家を一人取得
 GET http://{{host}}/author/1 HTTP/1.1
 content-type: {{contentType}}
