@@ -24,7 +24,7 @@ func migration() error {
 
 func success(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
-		"status": "SUCCESS!!",
+		"status": "SUCCESS!",
 	})
 }
 

@@ -6,4 +6,5 @@ COPY go.mod go.sum ./
 COPY docker/go/entrypoint.sh ./docker/go/
 RUN chmod +x ./docker/go/entrypoint.sh
 
+RUN go install github.com/cosmtrek/air@latest
 RUN go mod download
