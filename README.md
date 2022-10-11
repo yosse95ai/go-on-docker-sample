@@ -14,17 +14,26 @@ git clone git@github.com:yosse95ai/go-on-docker-sample.git
 cd go-on-docker-sample
 ```
 
-## 起動
-
-<font color="#d88">※ docker-compose コマンドが使える環境が必要</font>
-
-### 初回実行時
+## 準備
 
 まずはネットワークを作成
 
 ```bash
 docker network create go_app_network
 ```
+
+以下のコマンドを実行してください。
+
+```
+echo 'MYSQL_PASSWORD=password' > .env
+```
+※本来`.env`の内容は公開されるべきではありません！
+
+## 起動
+
+<font color="#d88">※ docker-compose コマンドが使える環境が必要</font>
+
+### 初回実行時
 
 コンテナをビルドして起動。
 
