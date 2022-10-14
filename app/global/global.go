@@ -6,6 +6,5 @@ import (
 	"gorm.io/gorm"
 )
 
-// DB
-var GormDB *gorm.DB
-var Db *sql.DB
+var GormDB *gorm.DB // Gorm 用グローバル変数
+var Db *sql.DB      // MySQL 用グローバル変数
