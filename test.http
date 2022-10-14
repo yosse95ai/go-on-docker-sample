@@ -23,3 +23,23 @@ content-type: {{contentType}}
 ### 作家を一人取得
 GET http://{{host}}/author/1 HTTP/1.1
 content-type: {{contentType}}
+
+### ユーザーを登録する
+POST http://{{host}}/api/v1/signup HTTP/1.1
+content-type: {{contentType}}
+
+{
+  "user_id": "monshin5",
+  "name": "問診五郎",
+  "email": "linux@mail.kyutech.jp",
+  "password": "monshin"
+}
+
+### ログインする
+POST http://{{host}}/api/v1/signin HTTP/1.1
+Content-Type: {{contentType}}
+
+{
+  "user_id": "123123",
+  "password": "monshin"
+}

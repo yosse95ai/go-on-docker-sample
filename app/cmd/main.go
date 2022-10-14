@@ -9,11 +9,12 @@ import (
 
 	g "go-on-docker/app/global"
 	ctl "go-on-docker/controllers"
+	auth "go-on-docker/controllers/auth"
 	m "go-on-docker/db/models"
 )
 
 func migration() error {
-	if err := g.GormDB.AutoMigrate(&m.Book{}, &m.Author{}, &m.Publisher{}); err != nil {
+	if err := g.GormDB.AutoMigrate(&m.Book{}, &m.Author{}, &m.Publisher{}, &m.User{}); err != nil {
 		return err
 	}
 	return nil
@@ -50,5 +51,10 @@ func main() {
 	e.GET("/authors", ctl.Author)
 	e.GET("/author/:idx", ctl.AuthorIdx)
 	e.GET("/publishers", ctl.Publisher)
+	auth_v1 := e.Group("/api/v1")
+	{
+		auth_v1.POST("/signup", auth.PostSignUp)
+		auth_v1.POST("/signin", auth.PostSignIn)
+	}
 	e.Run(":8000")
 }
