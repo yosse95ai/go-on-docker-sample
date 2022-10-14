@@ -8,7 +8,7 @@ import (
 	"gorm.io/gorm"
 
 	g "go-on-docker/app/global"
-	ctrl "go-on-docker/controllers"
+	ctl "go-on-docker/controllers"
 	m "go-on-docker/db/models"
 )
 
@@ -46,9 +46,9 @@ func main() {
 
 	e := gin.Default()
 	e.GET("/", success)
-	e.GET("/books", ctrl.Book)
-	e.GET("/authors", ctrl.Author)
-	e.GET("/author/:idx", ctrl.AuthorIdx)
-	e.GET("/publishers", ctrl.Publisher)
+	e.GET("/books", ctl.Book)
+	e.GET("/authors", ctl.Author)
+	e.GET("/author/:idx", ctl.AuthorIdx)
+	e.GET("/publishers", ctl.Publisher)
 	e.Run(":8000")
 }
