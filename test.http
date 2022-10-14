@@ -29,17 +29,19 @@ POST http://{{host}}/api/v1/signup HTTP/1.1
 content-type: {{contentType}}
 
 {
-  "user_id": "monshin5",
-  "name": "問診五郎",
-  "email": "linux@mail.kyutech.jp",
-  "password": "monshin"
+  "user_id": "ibc365dev",
+  "name": "ibc開発用アカウント",
+  "email": "dev@ibc.co.jp",
+  "password": "123456789"
 }
+
+
 
 ### ログインする
 POST http://{{host}}/api/v1/signin HTTP/1.1
 Content-Type: {{contentType}}
 
 {
-  "user_id": "123123",
-  "password": "monshin"
+  "user_id": "ibc365dev",
+  "password": "123456789"
 }
