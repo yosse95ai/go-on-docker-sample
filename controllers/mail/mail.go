@@ -9,6 +9,8 @@ import (
 	"os"
 )
 
+var to = "メールアドレスを入力"
+
 func sendMailByGmail(subject, html string, to []string) {
 	auth := smtp.PlainAuth(
 		"",
@@ -67,8 +69,8 @@ func main() {
 		log.Fatal("Gmailの環境変数が登録されていません")
 	}
 	sendHTMLMailByGmail(
-		"Mail test by golang",
+		"このメールが届いた時点では本登録は完了しておりません",
 		"./controllers/mail/template.html",
-		[]string{"karateyosi@gmail.com"},
+		[]string{to},
 	)
 }
