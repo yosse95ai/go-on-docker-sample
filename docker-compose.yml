@@ -45,5 +45,8 @@ services:
       - db
     networks:
       - go_app_network
+    environment:
+      - GMAIL_ACCOUNT=${GMAIL_ACCOUNT}
+      - GMAIL_APP_PASSWORD=${GMAIL_APP_PASSWORD}
     command: ["./docker/go/entrypoint.sh"]
     tty: true
