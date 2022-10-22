@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -45,16 +46,23 @@ func init() {
 func main() {
 	defer g.Db.Close()
 
-	e := gin.Default()
-	e.GET("/", success)
-	e.GET("/books", ctl.Book)
-	e.GET("/authors", ctl.Author)
-	e.GET("/author/:idx", ctl.AuthorIdx)
-	e.GET("/publishers", ctl.Publisher)
-	auth_v1 := e.Group("/api/v1")
+	router := gin.Default()
+
+	// Corsの設定
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://sample.com"}
+	router.Use(cors.New(config))
+
+	// エンドポイントの設定
+	router.GET("/", success)
+	router.GET("/books", ctl.Book)
+	router.GET("/authors", ctl.Author)
+	router.GET("/author/:idx", ctl.AuthorIdx)
+	router.GET("/publishers", ctl.Publisher)
+	auth_v1 := router.Group("/api/v1")
 	{
 		auth_v1.POST("/signup", auth.PostSignUp)
 		auth_v1.POST("/signin", auth.PostSignIn)
 	}
-	e.Run(":8000")
+	router.Run(":8000")
 }
