@@ -1,4 +1,5 @@
-FROM golang:1.19.1-alpine3.16
+# 開発環境 #########################################
+FROM golang:1.19.1-alpine3.16 as dev
 
 WORKDIR /app
 COPY app ./app
@@ -8,3 +9,5 @@ RUN chmod +x ./docker/go/entrypoint.sh
 
 RUN go install github.com/cosmtrek/air@latest
 RUN go mod download
+
+CMD [ "./docker/go/entrypoint.sh" ]

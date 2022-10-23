@@ -50,7 +50,7 @@ func main() {
 
 	// Corsの設定
 	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"http://sample.com"}
+	config.AllowOrigins = []string{"http://localhost"}
 	router.Use(cors.New(config))
 
 	// エンドポイントの設定

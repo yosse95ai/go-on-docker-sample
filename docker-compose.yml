@@ -48,5 +48,5 @@ services:
     environment:
       - GMAIL_ACCOUNT=${GMAIL_ACCOUNT}
       - GMAIL_APP_PASSWORD=${GMAIL_APP_PASSWORD}
-    command: ["./docker/go/entrypoint.sh"]
+      - _ENV=dev
     tty: true
