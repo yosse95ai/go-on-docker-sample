@@ -9,4 +9,5 @@ import (
 var (
 	GormDB *gorm.DB // Gorm 用グローバル変数
 	Db     *sql.DB  // MySQL 用グローバル変数
+	Pem    []byte
 )

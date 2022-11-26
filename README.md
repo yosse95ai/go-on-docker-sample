@@ -37,6 +37,12 @@ https://support.google.com/accounts/answer/185833?hl=ja
 
 ※ アプリパスワードの作成には 2 段階認証の設定が必要です。
 
+以下のコマンドで で private key を作成
+
+```
+openssl genrsa -out private.key 2048
+```
+
 ## 起動
 
 <font color="#d88">※ docker-compose コマンドが使える環境が必要</font>

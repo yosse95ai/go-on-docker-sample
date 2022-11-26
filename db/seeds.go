@@ -75,16 +75,12 @@ func initRelationship(db *gorm.DB) {
 }
 
 func initUser(db *gorm.DB) {
-	pw1, _ := crypto.PasswordEncrypt("monshin")
-	pw2, _ := crypto.PasswordEncrypt("password")
+	pw1, _ := crypto.PasswordEncrypt("password")
 	u := []m.User{{
-		UserProfile: m.UserProfile{Email: "go@gmail.com", Name: "問診太郎", UserId: "123123"},
-		Password:    pw1,
-	}, {
-		UserProfile: m.UserProfile{Email: "ibc@gmial.com", Name: "吉村弘明", UserId: "000011"},
-		Password:    pw2,
+		UserName: "yoshimura",
+		Password: pw1,
 	}}
-	if err := db.Create(&u[0]).Create(&u[1]).Error; err != nil {
+	if err := db.Create(&u[0]).Error; err != nil {
 		panic(err)
 	}
 }

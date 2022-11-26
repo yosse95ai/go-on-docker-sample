@@ -1,6 +1,8 @@
 package main
 
 import (
+	"io/ioutil"
+	"log"
 	"net/http"
 
 	"github.com/gin-contrib/cors"
@@ -8,10 +10,13 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
+	"go-on-docker/app/global"
 	g "go-on-docker/app/global"
 	ctl "go-on-docker/controllers"
 	auth "go-on-docker/controllers/auth"
 	m "go-on-docker/db/models"
+	"go-on-docker/middleware"
+	mw "go-on-docker/middleware"
 )
 
 func migration() error {
@@ -40,7 +45,14 @@ func init() {
 	g.GormDB = _gormDB
 	g.Db = _db
 	migration()
+
+	global.Pem, err = ioutil.ReadFile("private.key")
+	if err != nil {
+		panic(err)
+	}
 }
+
+var identityKey = "id"
 
 // エントリーポイント
 func main() {
@@ -53,16 +65,36 @@ func main() {
 	config.AllowOrigins = []string{"http://localhost"}
 	router.Use(cors.New(config))
 
+	authMiddleware, err := mw.AuthMiddleware()
+
+	if err != nil {
+		log.Fatal("JWT Error:" + err.Error())
+	}
+
+	errInit := authMiddleware.MiddlewareInit()
+	if errInit != nil {
+		log.Fatal("authMiddleware.MiddlewareInit() Error:" + errInit.Error())
+	}
+
+	router.POST("login", authMiddleware.LoginHandler)
+
+	authRouter := router.Group("/auth")
+	{
+		authRouter.GET("/hello", auth.HelloHandle)
+	}
+
+	lobby := router.Group("/lobby")
+	{
+		lobby.POST("/signup", auth.Signup)
+		lobby.POST("/login", auth.Login)
+		lobby.GET("/validate", middleware.Authentication, auth.Validate)
+	}
+
 	// エンドポイントの設定
 	router.GET("/", success)
 	router.GET("/books", ctl.Book)
 	router.GET("/authors", ctl.Author)
 	router.GET("/author/:idx", ctl.AuthorIdx)
 	router.GET("/publishers", ctl.Publisher)
-	auth_v1 := router.Group("/api/v1")
-	{
-		auth_v1.POST("/signup", auth.PostSignUp)
-		auth_v1.POST("/signin", auth.PostSignIn)
-	}
 	router.Run(":8000")
 }

@@ -24,22 +24,49 @@ content-type: {{contentType}}
 GET http://{{host}}/author/1 HTTP/1.1
 content-type: {{contentType}}
 
-### ユーザーを登録する
-POST http://{{host}}/api/v1/signup HTTP/1.1
-content-type: {{contentType}}
 
-{
-  "user_id": "ibc365dev",
-  "name": "ibc開発用アカウント",
-  "email": "dev@ibc.co.jp",
-  "password": "123456789"
-}
-
-### ログインする
-POST http://{{host}}/api/v1/signin HTTP/1.1
+### JWT を試す
+POST http://{{host}}/login HTTP/1.1
 Content-Type: {{contentType}}
 
 {
-  "user_id": "ibc365dev",
-  "password": "123456789"
+  "user_name": "monshin",
+  "password": "monshin"
 }
+
+###
+GET http://{{host}}/auth/hello HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Njk0NjAxNDYsImlkIjoiYWRtaW4iLCJvcmlnX2lhdCI6MTY2OTQ1NjU0Nn0.5P-518WDWBYUHKIR18nqUybUfcgCBPyrGQdX-OvBa9s
+Content-Type: {{contentType}}
+
+###
+# @name signup
+# @prompt username
+# @prompt password
+POST http://{{host}}/lobby/signup HTTP/1.1
+Content-Type: {{contentType}}
+
+{
+  "user_name": "{{username}}",
+  "password": "{{password}}"
+}
+
+###
+# @name login
+# @prompt username
+# @prompt password
+POST http://{{host}}/lobby/login HTTP/1.1
+Content-Type: {{contentType}}
+
+{
+  "user_name": "{{username}}",
+  "password": "{{password}}"
+}
+
+
+###
+# @name validate
+@jwt = {{login.response.headers.Jwt}}
+GET http://{{host}}/lobby/validate HTTP/1.1
+Content-Type: {{contentType}}
+Jwt: {{jwt}}
