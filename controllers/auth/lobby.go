@@ -73,7 +73,6 @@ func Login(c *gin.Context) {
 	c.SetSameSite(http.SameSiteLaxMode)
 	c.Writer.Header().Set("Jwt", tokenString)
 
-	user.Token = &tokenString
 	if err := global.GormDB.Model(&user).Update("token", tokenString).Error; err != nil {
 		c.JSON(401, gin.H{"error": err.Error()})
 	}
@@ -81,7 +80,18 @@ func Login(c *gin.Context) {
 	c.JSON(200, gin.H{"message": "success"})
 }
 
-func Validate(c *gin.Context) {
+func IsLogedIn(c *gin.Context) {
 	user, _ := c.Get("user")
 	c.JSON(200, user)
+}
+
+func Logout(c *gin.Context) {
+	user, _ := c.Get("user")
+	u := user.(models.User)
+
+	if err := global.GormDB.Model(&u).Update("token", nil).Error; err != nil {
+		c.JSON(401, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(200, gin.H{"message": "ログアウト完了"})
 }

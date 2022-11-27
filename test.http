@@ -64,9 +64,17 @@ Content-Type: {{contentType}}
 }
 
 
+### JSON WEB TOKEN
+@jwt = {{login.response.headers.Jwt}}
+
 ###
 # @name validate
-@jwt = {{login.response.headers.Jwt}}
 GET http://{{host}}/lobby/validate HTTP/1.1
+Content-Type: {{contentType}}
+Jwt: {{jwt}}
+
+###
+# @name logout
+DELETE http://{{host}}/lobby/logout HTTP/1.1
 Content-Type: {{contentType}}
 Jwt: {{jwt}}

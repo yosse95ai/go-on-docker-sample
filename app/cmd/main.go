@@ -87,7 +87,11 @@ func main() {
 	{
 		lobby.POST("/signup", auth.Signup)
 		lobby.POST("/login", auth.Login)
-		lobby.GET("/validate", middleware.Authentication, auth.Validate)
+		lobby_auth := lobby.Use(middleware.Authentication(middleware.UserAuthenticator))
+		{
+			lobby_auth.DELETE("/logout", auth.Logout)
+			lobby_auth.GET("/validate", auth.IsLogedIn)
+		}
 	}
 
 	// エンドポイントの設定
